@@ -1,2 +1,24 @@
 # linkedin_scraper
-extract linkedin profiles
+extracts linkedin profiles
+
+
+this project extracts data from linkedin profiles, please read carefully to use it properly.
+
+first download all librares that used on project.
+
+changes in connect.py scripts
+1) first you will need to download last version of chromedriver  https://chromedriver.chromium.org/downloads   (if you don't use chomre browser then there are other alternative drivers for other browsers).
+save installed chromedriver to linkedin_scraper folder. 
+then add path of chromedriver "Service('path')"  in connect.py
+
+2) next,  enter your linkedin email and password of your linkedin accaount to the linkedin_connect() function.
+Please, be carefull that you use your second/dummy linkedin accaount, because linkedin may ban the accaunt beacuse of too many requests.
+
+
+
+changes in run_scrape.py scripts
+1)  add path to df_url=pd.read_csv(path), csv file should include linkedin urls... example: https://www.linkedin.com/in/tom_and_jerry/
+it will extract and save linkedin profiles' data to /data folder.
+
+
+after you have done with all changes , you can start scraping data by run_scrape.py
