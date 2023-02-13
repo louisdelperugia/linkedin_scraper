@@ -25,20 +25,20 @@ def linkedin_connect():
     driver.get('https://www.linkedin.com/login')
 
     # enter your mail and password to login linkedin
-    email = ""
-    passw = ""
+    email = "karl.schnider@outlook.com"
+    passw = "WmMLc6VYNunFD8X"
 
     # locate email form by_class_name
-    username = driver.find_element_by_id('username')
+    username = driver.find_element(by=By.ID,value='username')
     # send_keys() to simulate key strokes
     username.send_keys(email)
     # locate password form by_class_name
-    password = driver.find_element_by_id('password')
+    password = driver.find_element(by=By.ID,value='password')
     # send_keys() to simulate key strokes
     password.send_keys(passw)
     time.sleep(0.5)
     # locate submit button by_class_name
-    log_in_button = driver.find_element_by_class_name('login__form_action_container ')
+    log_in_button = driver.find_element(by=By.CLASS_NAME, value='login__form_action_container ')
     # .click() to mimic button click
     log_in_button.click()
 
@@ -55,25 +55,14 @@ def save_html(url,driver):
     time.sleep(random.randint(6, 8))
     skills_page=driver.page_source
 
-    # scrapes education page's html codes
-    driver.get(f'{url}details/education/')
-    time.sleep(random.randint(5, 7))
-    education_page=driver.page_source
+
 
     # scrapes experience page's html codes
     driver.get(f'{url}details/experience/')
     time.sleep(random.randint(10, 12))
     experience_page=driver.page_source
 
-    # scrapes certification page's html codes
-    driver.get(f'{url}details/certifications/')
-    time.sleep(random.randint(5, 7))
-    certifications_page=driver.page_source
 
-    # scrapes language page's html codes
-    driver.get(f'{url}details/languages/')
-    time.sleep(random.randint(2, 4))
-    languages_page=driver.page_source
 
     return [driver,all_page,skills_page,education_page,experience_page,certifications_page,languages_page]
 

@@ -1,5 +1,5 @@
 from bs4 import BeautifulSoup
-from div_till_section import parent_tag
+from src.div_till_section import parent_tag
 
 def skills(skills_soup):
     try:
