@@ -25,9 +25,9 @@ def save_to_pkl(header_info, summary_info, experience_info, url):
         returns:
     '''
     # creates empty dataframe with column names
-    df = pd.DataFrame(columns=['full_name', 'current_title', 'location', 'summary', 'experience', 'url'])
+    df = pd.DataFrame(columns=['full_name', 'current_title', 'location', 'experience', 'url'])
     # adds info to the dataframe
-    df.loc[0] = [header_info['full_name'], header_info['current_title'], header_info['location'], summary_info,
+    df.loc[0] = [header_info['full_name'], header_info['current_title'], header_info['location'],
                 experience_info, url]
     # read data
     df_scraped = pd.read_pickle('data/scraped_profiles.pkl')
@@ -43,7 +43,7 @@ def save_to_pkl(header_info, summary_info, experience_info, url):
 
 
 def call_all_sections(url, driver):
-    # # connects to linkedin via chromedriver
+    # connects to linkedin via chromedriver
     # driver=linkedin_connect()
 
     # returns list which includes driver and html codes of each section
@@ -60,7 +60,6 @@ def call_all_sections(url, driver):
     # ----------PAGE SOURCES TO BeautifulSoup TYPE-------------
     # all page source
     soup = BeautifulSoup(html_codes, 'html.parser')
-    # skills page source
     # experience page source
     experience_soup = BeautifulSoup(html_codes_experience, 'html.parser')
 
@@ -85,13 +84,11 @@ def call_all_sections(url, driver):
     # gets info in different types
     # dict
     header_info = header(header_section, all_section)
-    # str
-    summary_info = about(about_section)
-    # list->dict
+
     experience_info = experience(experience_soup)
     # list->dict
 
-    save_to_pkl(header_info, summary_info, experience_info, url)
+    save_to_pkl(header_info, experience_info, url)
 
     return driver
 
@@ -119,8 +116,8 @@ if __name__ == "__main__":
     driver = linkedin_connect()
     input_string = input('Type anything and click enter to continue: ')
     # read data, enter your csv file's path
-    colnames=['url']
-    df_url = pd.read_csv('list.csv', header=None, names=colnames)
+
+    df_url = pd.read_csv('list.csv', header=None, names=['url'])
     count = 0
     # linkedin url of the person
     for index, row in df_url.iterrows():

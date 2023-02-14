@@ -2,21 +2,28 @@ import sys
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
+import seleniumwire.undetected_chromedriver as uc
+
+
 from bs4 import BeautifulSoup
 import time
 import requests
 import random
 
+
 def chrome_driver():
     # path to the chromedriver,chane and enter your path below
     ser = Service("...linkedin_scraper/chromedriver")
     opt = webdriver.ChromeOptions()
-    # # opens chrome driver but wont show chrome pages
-    #opt.add_argument("headless")
-    # enables automation
     opt.add_experimental_option("useAutomationExtension", False)
     opt.add_experimental_option("excludeSwitches",["enable-automation"])
     driver = webdriver.Chrome(service=ser, options=opt)
+
+    driver.execute_cdp_cmd('Storage.clearDataForOrigin', {
+        "origin": '*',
+        "storageTypes": 'all',
+    })
+
     return driver
 
 def linkedin_connect():
@@ -25,7 +32,7 @@ def linkedin_connect():
     driver.get('https://www.linkedin.com/login')
 
     # enter your mail and password to login linkedin
-    email = "karl.schnider@outlook.com"
+    email = "morriz.fillip@outlook.com"
     passw = "WmMLc6VYNunFD8X"
 
     # locate email form by_class_name
@@ -50,21 +57,12 @@ def save_html(url,driver):
     time.sleep(random.randint(3, 5))
     all_page=driver.page_source
 
-    # scrapes skills page's html codes
-    driver.get(f'{url}details/skills/')
-    time.sleep(random.randint(6, 8))
-    skills_page=driver.page_source
-
-
-
     # scrapes experience page's html codes
     driver.get(f'{url}details/experience/')
     time.sleep(random.randint(10, 12))
     experience_page=driver.page_source
 
-
-
-    return [driver,all_page,skills_page,education_page,experience_page,certifications_page,languages_page]
+    return [driver,all_page,experience_page]
 
 if __name__ == "__main__":
     driver=linkedin_connect()

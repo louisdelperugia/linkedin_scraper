@@ -1,23 +1,16 @@
-"""import pandas as pd
+from seleniumwire import webdriver  # Import from seleniumwire
 
-# Empty list
-df = pd.DataFrame(columns=['full_name', 'current_title', 'location', 'summary', 'skills', 'education', 'experience',
-                           'certifications', 'languages', 'url'])
+# Create a new instance of the Chrome driver
+driver = webdriver.Chrome()
 
-# It will make Empty Pickle File in same folder in which code is running
-pd.to_pickle(df, "data/scraped_profiles.pkl")
-"""
-import pickle as pkl
-import pandas as pd
-pd.set_option('display.max_columns', None)
-pd.set_option('display.max_rows', None)
-pd.options.display.max_colwidth = 1000
-"""with open("data/scraped_profiles.pkl", "rb") as f:
-    object = pkl.load(f)
+# Go to the Google home page
+driver.get('https://linkedin.com')
 
-df = pd.DataFrame(object)
-df.to_csv(r'file.csv')"""
-
-a = pd.read_csv('file.csv', header=None)
-
-print(a)
+# Access requests via the `requests` attribute
+for request in driver.requests:
+    if request.response:
+        print(
+            request.url,
+            request.response.status_code,
+            request.response.headers['Content-Type']
+        )
