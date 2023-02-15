@@ -8,7 +8,7 @@ from src.header import header
 from src.about import about
 from src.experience import experience
 
-https://www.scraperapi.com/blog/linkedin-scraper-python/
+
 def save_to_pkl(header_info, experience_info, url):
 
     df = pd.DataFrame(columns=['full_name', 'current_title', 'location', 'experience', 'url'])
@@ -62,6 +62,7 @@ if __name__ == "__main__":
     count = 0
     for index, row in df_url.iterrows():
         url = row['url']
+        url = "http://api.scraperapi.com?api_key=9bcf40e14bb4e30ded56421f15645949&url=" + url
         print(url)
         driver = call_all_sections(url, driver)
         count += 1

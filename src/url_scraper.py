@@ -1,15 +1,13 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 import time
 import pandas as pd
 from selenium.webdriver.common.by import By
 
 st = input("Enter keywords you want to search- ")
 search_string = str(st.replace(' ', '+'))
-
-
-
-ser = Service("...linkedin_scraper/chromedriver")
+ser=Service(ChromeDriverManager().install())
 opt = webdriver.ChromeOptions()
 opt.add_argument("--incognito")
 opt.add_experimental_option("useAutomationExtension", False)
@@ -21,7 +19,12 @@ driver.execute_cdp_cmd('Storage.clearDataForOrigin', {
     "storageTypes": 'all',
 })
 
-driver.get("https://www.google.com/search?q=" + search_string + "&start=" + str('1'))
+driver.get(
+    "http://api.scraperapi.com?api_key=9bcf40e14bb4e30ded56421f15645949&url=" +
+    "https://www.google.com/search?q=" +
+    search_string +
+    "&start=" +
+    str('1'))
 
 max_page = 2
 all_urls = []
@@ -33,7 +36,6 @@ while True:
     urls = [url.find_element(by=By.TAG_NAME, value='a') for url in urls]
     urls = [url.get_attribute("href") for url in urls]
     all_urls = all_urls + urls
-
 
     page += 1
 
