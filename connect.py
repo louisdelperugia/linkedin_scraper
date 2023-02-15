@@ -17,7 +17,7 @@ def chrome_driver():
         "storageTypes": 'all',
     })
     return driver
-
+ss
 
 def linkedin_connect():
     driver = chrome_driver()
