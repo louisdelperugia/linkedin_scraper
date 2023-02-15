@@ -8,7 +8,7 @@ from src.header import header
 from src.about import about
 from src.experience import experience
 
-
+https://www.scraperapi.com/blog/linkedin-scraper-python/
 def save_to_pkl(header_info, experience_info, url):
 
     df = pd.DataFrame(columns=['full_name', 'current_title', 'location', 'experience', 'url'])
