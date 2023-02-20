@@ -38,6 +38,7 @@ driver.execute_cdp_cmd('Storage.clearDataForOrigin', {
 
 driver.get(
     "https://www.google.com/search?q=" +
+    "site:www.linkedin.com/in " +
     search_string +
     "&start=" +
     str('1'))
