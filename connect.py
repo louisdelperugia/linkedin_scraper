@@ -2,15 +2,24 @@ import random, time
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 
 
 def chrome_driver():
     ser = Service("...linkedin_scraper/chromedriver")
     opt = webdriver.ChromeOptions()
+    opt.add_argument("--incognito")
+    opt.add_argument('--no-sandbox')
+    opt.add_argument('--disable-dev-sh-usage')
     opt.add_experimental_option("useAutomationExtension", False)
     opt.add_experimental_option("excludeSwitches", ["enable-automation"])
-    driver = webdriver.Chrome(service=ser, options=opt)
+
+    caps = DesiredCapabilities.CHROME
+    caps['goog:loggingPrefs'] = {'performance': 'ALL'}
+
+    driver = webdriver.Chrome(service=ser, options=opt,
+                              desired_capabilities=caps)
 
     driver.execute_cdp_cmd('Storage.clearDataForOrigin', {
         "origin": '*',
