@@ -14,8 +14,7 @@ API_KEY = '9bcf40e14bb4e30ded56421f15645949'
 proxy_options = {
     'proxy': {
         'http': f'http://scraperapi:{API_KEY}@proxy-server.scraperapi.com:8001',
-        'no_proxy': 'localhost,127.0.0.1'
-    }
+        'no_proxy': 'localhost,127.0.0.1'}
 }
 
 opt = uc.ChromeOptions()
@@ -27,9 +26,9 @@ caps = DesiredCapabilities.CHROME
 caps['goog:loggingPrefs'] = {'performance': 'ALL'}
 
 driver = uc.Chrome(options=opt,
-                            desired_capabilities=caps,
-                   seleniumwire_options = proxy_options
-)
+                   desired_capabilities=caps,
+                   seleniumwire_options=proxy_options
+                   )
 
 driver.execute_cdp_cmd('Storage.clearDataForOrigin', {
     "origin": '*',
@@ -69,4 +68,3 @@ while True:
 df = pd.DataFrame(all_urls)
 print(df.head())
 df.to_csv('linkedin_url.csv')
-
